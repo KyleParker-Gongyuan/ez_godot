@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 void main() {
+  print("bro wtf");
   runApp(const MyApp());
 }
 
@@ -13,6 +14,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    print("it started I guess");
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(

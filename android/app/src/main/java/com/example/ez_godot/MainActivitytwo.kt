@@ -8,7 +8,7 @@ import org.godotengine.godot.GodotHost
 import org.godotengine.godot.plugin.GodotPlugin
 
 /*
-class MainActivitytwo : AppCompatActivity(),GodotHost {
+class MainActivitytwo : AppCompatActivity(),GodotHost, GodotPlugin implements EventChannel.StreamHandler {
 
     private var godotFragment: GodotFragment? = null;
 
@@ -25,9 +25,50 @@ class MainActivitytwo : AppCompatActivity(),GodotHost {
         }
     }
 
+    
 
 
 
+    
+    /**
+     * Base constructor passing a {@link Godot} instance through which the plugin can access Godot's
+     * APIs and lifecycle events.
+     *
+     * @param godot
+     */
+
+
+    private EventChannel.EventSink mainTxta;
+
+
+    public HelloWorld(Godot godot) {
+        super(godot);
+    }
+
+
+    @NonNull
+    @Override
+    public String getPluginName() {
+        return "HelloWorld";
+    }
+
+    @UsedByGodot
+    public void Hello(String text){
+        if (mainTxta != null) {
+
+            mainTxta.success(text);
+        }
+    }
+
+    @Override
+    public void onListen(Object arguments, EventChannel.EventSink events) {
+        mainTxta = events;
+    }
+
+    @Override
+    public void onCancel(Object arguments) {
+        mainTxta = null;
+    }
 
         override fun getActivity() = this
 
@@ -88,6 +129,7 @@ class MainActivitytwo: AppCompatActivity(), GodotHost {
     override fun getActivity() = this
 
     override fun getGodot() = godotFragment?.godot
+
 
     /*
     override fun getHostPlugins(godot: Godot): Set<GodotPlugin> {

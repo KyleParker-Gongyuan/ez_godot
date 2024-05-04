@@ -3,12 +3,13 @@ package com.example.ez_godot
 import android.content.Context
 import android.content.Intent
 import androidx.annotation.NonNull
+import godotpluginHome.godotpluginMaster
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.BinaryMessenger
+import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodChannel
-import java.io.File
-import java.io.FileOutputStream
+import org.godotengine.godot.Godot
 
 
 class MainActivity: FlutterActivity() {
@@ -18,13 +19,18 @@ class MainActivity: FlutterActivity() {
     private val EXIT_CHNNEL_NAME = "com.kaiyo.ezgodot/exit"
 
     private var methodchannel: MethodChannel? = null
-
+    private val eventName =  "kaiyo.ezgodot/generic";
+    //private HelloWorld helloWorld = new MainActivitytwo();
+    //val helloWorld = godotpluginMaster();
+    val helloWorld = godotpluginMaster(null);
 
     override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
 
         //setup channels
         setupchannles(this, flutterEngine.dartExecutor.binaryMessenger);
+        
+        val events = EventChannel(flutterEngine.dartExecutor.binaryMessenger, eventName).setStreamHandler(helloWorld);
     }
 
     override fun onDestroy() {
