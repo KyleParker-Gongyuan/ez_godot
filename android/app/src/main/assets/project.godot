@@ -10,14 +10,14 @@ config_version=5
 
 [application]
 
-config/name="newGodo"
-run/main_scene="res://main.tscn"
+config/name="flutterGameHolder"
+run/main_scene="res://gameloader.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://icon.svg"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/flutplug/plugin.cfg")
+enabled=PackedStringArray("res://addons/HelloWorld/plugin.cfg")
 
 [rendering]
 
