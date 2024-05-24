@@ -25,21 +25,23 @@ class GodotpluginMaster(godot: Godot?, ) :  GodotPlugin(godot), EventChannel.Str
 
     private var faf: String = ""
 
-    private lateinit var eventSink: EventChannel.EventSink
+    private var eventSink: EventChannel.EventSink? = null
 
 
-    override fun onListen(arguments: Any?, events: EventChannel.EventSink) {
+    override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
         eventSink = events
-        events.success("he we started")
 
     }
+    override fun onCancel(arguments: Any?) {
+        eventSink = null
 
+    }
 
     @UsedByGodot
     public fun sendData(mydata: String) { // send to flutter
         faf = mydata
         println("OLD lord of Data: " + faf)
-        eventSink.success(faf)
+        eventSink?.success(faf)
     }
 
 
@@ -124,10 +126,7 @@ class GodotpluginMaster(godot: Godot?, ) :  GodotPlugin(godot), EventChannel.Str
 
 
 
-    override fun onCancel(arguments: Any?) {
-        //eventSink = null
 
-    }
 
     /*override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
         this.methodCall = methodCall
